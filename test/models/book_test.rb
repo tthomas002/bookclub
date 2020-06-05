@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "must have title" do
+    assert_not Book.new.save
+  end
 end
