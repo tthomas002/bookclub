@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
   def new
-    @chapter = Chapter.find(params[:chapter])
-    @post = Post.new(chapter: @chapter)
+    @chapter = Chapter.find(params[:chapter_id])
+    @post = Post.new
   end
 
   def create
-    @chapter = Chapter.find(params[:post][:chapter_id])
     @post = Post.new(post_params)
+    @chapter = @post.chapter
 
     if @post.save
       redirect_to @chapter, notice: "Post created successfully"
