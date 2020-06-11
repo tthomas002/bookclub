@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: Test Fixture Book One
 
 two:
-  title: MyString
+  title: Test Fixture Book Two
