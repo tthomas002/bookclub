@@ -1,6 +1,6 @@
 <h1><%= @chapter.book.title %></h1>
 <h2>Chapter <%= @chapter.number %> Discussion</h2>
-<%= link_to 'New Post', new_post_path(chapter: @chapter) %>
+<%= link_to 'New Post', new_chapter_post_path(@chapter) %>
 <% @chapter.posts.each do |post| %>
   <p><%= post.content %></p>
 <% end %>
