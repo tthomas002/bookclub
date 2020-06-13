@@ -1,7 +1,6 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:edit, :update, :destroy]
-
   before_action :admin_authorization, only: [:new, :edit, :create, :update, :destroy]
+  before_action :set_book, only: [:edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -59,6 +58,6 @@ class BooksController < ApplicationController
     end
 
     def admin_authorization
-      redirect_to books_path unless current_user.admin?
+      redirect_to root_path unless current_user.admin?
     end
 end
