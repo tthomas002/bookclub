@@ -23,5 +23,4 @@
   </div>
 <% end %>
 
-<%= link_to 'Show', @chapter %> |
-<%= link_to 'Back', @chapter.book %>
+<%= link_to 'Back', book_chapters_path(@chapter.book) %>

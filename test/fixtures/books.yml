@@ -3,5 +3,11 @@
 one:
   title: Test Fixture Book One
 
-two:
-  title: Test Fixture Book Two
+no_chapters:
+  title: Book with No Chapter
+
+one_chapter:
+  title: Book with One Chapter
+
+three_chapters:
+  title: Book with Three Chapters

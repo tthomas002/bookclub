@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  chapter: one
+  title: Test Post 1
+  chapter: book_one_chapter_one
 
 two:
-  title: MyString
-  chapter: two
+  title: Test Post 2
+  chapter: book_one_chapter_one
+
+third_chapter_post:
+  title: "Third Chapter Post"
+  chapter: chapter_3_of_3

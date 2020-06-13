@@ -1,0 +1,60 @@
+<h2><%= @book.title %></h2>
+
+<h3>Chapters</h3>
+
+<% if @chapter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
+
+      <ul>
+        <% @chapter.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form_with model: [@book, @chapter], local: true do |form| %>
+<table>
+  <thead>
+    <tr>
+      <th>Chapter</th>
+      <th>Title</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @book.chapters.order(:number).each do |chapter| %>
+    <tr>
+      <td>
+        <%= chapter.number %>
+      </td>
+      <td>
+        <%= link_to "#{chapter.title}", chapter_posts_path(chapter) %>
+      </td>
+      <td>
+        <%= link_to 'Edit', edit_chapter_path(chapter), id: "chapter-#{chapter.number}" %>
+      </td>
+      <td>
+    <% if (chapter.number == @book.chapters.count) %>
+      <%= link_to 'Delete', chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>
+      <%= @book.next_chapter_number %>
+    </td>
+    <td>
+      <%= form.text_field :title %>
+    </td>
+    <td>
+      <%= form.submit "Save" %>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<% end %>
+
+<%= link_to "Books", root_path %>

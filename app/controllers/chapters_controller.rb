@@ -1,23 +1,32 @@
 class ChaptersController < ApplicationController
-  def new
-    book = Book.find(params[:book])
-    next_chapter_number = book.chapters.count + 1
-    Chapter.create(book: book, number: next_chapter_number)
-    redirect_to book, notice: 'Chapter added successfully'
+
+  def index
+    @book = Book.find(params[:book_id])
+    @chapter = Chapter.new
+  end
+
+  def create
+    @book = Book.find(params[:book_id])
+    @chapter = Chapter.new(chapter_params)
+    @chapter.number = @book.next_chapter_number
+    @chapter.book_id = params[:book_id]
+
+    if @chapter.save
+      redirect_to book_chapters_path(@chapter.book), notice: "Chapter successfully created"
+    else
+      flash.now[:notice] = "Chapter creation unsuccessful"
+      render :index
+    end
   end
 
   def edit
     @chapter = Chapter.find(params[:id])
   end
 
-  def show
-    @chapter = Chapter.find(params[:id])
-  end
-
   def update
-    chapter = Chapter.find(params[:id])
-    if chapter.update(chapter_params)
-      redirect_to chapter.book, notice: 'Chapter was successfully updated.'
+    @chapter = Chapter.find(params[:id])
+    if @chapter.update(chapter_params)
+      redirect_to book_chapters_path(@chapter.book), notice: 'Chapter was successfully updated.'
     else
       render :edit
     end
@@ -26,7 +35,7 @@ class ChaptersController < ApplicationController
   def destroy
     chapter = Chapter.find(params[:id])
     chapter.destroy
-    redirect_to chapter.book, notice: 'Chapter was successfully destroyed.'
+    redirect_to book_chapters_path(chapter.book), notice: 'Chapter was successfully destroyed.'
   end
 
   private

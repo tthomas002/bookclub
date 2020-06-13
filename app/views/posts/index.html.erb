@@ -1,0 +1,12 @@
+<h1><%= @chapter.book.title %></h1>
+<h2>Chapter <%= @chapter.number %> Discussion</h2>
+
+<% @chapter.posts.each do |post| %>
+  <div>
+    <p><strong><%= post.title %></strong>: <%= post.content %><%= link_to "Edit", edit_chapter_post_path(@chapter, post) %> | <%= link_to "Delete", chapter_post_path(@chapter, post), method: :delete, data: { confirm: "Are you sure you would like to delete this post?" } %></p>
+  </div>
+<% end %>
+
+<%= render "new_post" %>
+
+<%= link_to "Back", book_chapters_path(@chapter.book) %>

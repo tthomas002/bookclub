@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root 'books#index'
-  resources :books do
-    resources :chapters
+
+  resources :books, except: [:show] do
+    resources :chapters, except: [:new, :show]
   end
-  resources :chapters do
+  resources :chapters, except: [:show, :create] do
     resources :posts
   end
   devise_for :users
