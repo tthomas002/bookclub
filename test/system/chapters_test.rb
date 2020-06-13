@@ -1,29 +1,53 @@
 require "application_system_test_case"
 
 class ChaptersTest < ApplicationSystemTestCase
+  include Devise::Test::IntegrationHelpers
 
   setup do
-    visit book_chapters_url(books(:three_chapters))
+    @user = users(:user)
+    @admin = users(:admin)
+    @book = books(:three_chapters)
   end
 
-  test "listing chapters in book detail view" do
-    assert_selector "h3", text: "Chapters"
+  test "user can see list of chapters" do
+    sign_in @user
+    visit book_chapters_url(@book)
+    assert_selector "h2", text: "Chapters"
   end
 
-  test "navigating back to the books index" do
+  test "non-user can't see list of chapters" do
+    visit book_chapters_url(@book)
+    assert_current_path new_user_session_path
+  end
+
+  test "user can navigate back to the books index from chapters index" do
+    sign_in @user
+    visit book_chapters_url(@book)
     click_on "Books"
     assert_current_path root_path
   end
 
-  test "adding chapters to a book" do
+  test "regular user cant see Edit or Destroy link" do
+    sign_in @user
+    visit book_chapters_url(@book)
+    refute_link "Edit", class: "chapter-edit-link"
+    refute_link "Delete"
+    refute_button "Save"
+  end
+
+  test "adding chapters to a book as admin" do
+    sign_in @admin
+    visit book_chapters_url(@book)
     fill_in "chapter_title", with: "Adding Chapter"
     click_on "Save"
 
     assert_text "Chapter successfully created"    
   end
 
-  test "updating a chapter with a name" do
-    click_on "Edit", match: :first
+  test "updating a chapter with a name as admin" do
+    sign_in @admin
+    visit book_chapters_url(@book)
+    click_on "Edit", class: "chapter-edit-link", match: :first
     fill_in "Title", with: "Testing Update"
     click_on "Update Chapter"
 
@@ -31,7 +55,10 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_text "Testing Update"
   end
 
-  test 'destroying the last chapter' do
+  test 'destroying the last chapter as admin' do
+    sign_in @admin
+    visit book_chapters_url(@book)
+    
     page.accept_confirm do
       click_on "Delete"
     end

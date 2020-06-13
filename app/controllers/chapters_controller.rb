@@ -1,4 +1,5 @@
 class ChaptersController < ApplicationController
+  before_action :admin_authorization, only: [:create, :edit, :update, :destroy]
 
   def index
     @book = Book.find(params[:book_id])
@@ -41,5 +42,9 @@ class ChaptersController < ApplicationController
   private
   def chapter_params
     params.require(:chapter).permit(:title)
+  end
+
+  def admin_authorization
+    redirect_to root_path unless current_user.admin?
   end
 end

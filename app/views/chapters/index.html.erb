@@ -20,7 +20,9 @@
     <tr>
       <th>Chapter</th>
       <th>Title</th>
-      <th colspan="2">Actions</th>
+      <% if current_user.admin? %>
+        <th colspan="2">Actions</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -32,16 +34,19 @@
       <td>
         <%= link_to "#{chapter.title}", chapter_posts_path(chapter) %>
       </td>
+      <% if current_user.admin? %>
       <td>
-        <%= link_to 'Edit', edit_chapter_path(chapter), id: "chapter-#{chapter.number}" %>
+        <%= link_to 'Edit', edit_chapter_path(chapter), id: "chapter-#{chapter.number}", class: 'chapter-edit-link' %>
       </td>
       <td>
-    <% if (chapter.number == @book.chapters.count) %>
-      <%= link_to 'Delete', chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
+      <% if (chapter.number == @book.chapters.count) %>
+        <%= link_to 'Delete', chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
       </td>
+      <% end %>
     </tr>
   <% end %>
+  <% if current_user.admin? %>
   <tr>
     <td>
       <%= @book.next_chapter_number %>
@@ -53,6 +58,7 @@
       <%= form.submit "Save" %>
     </td>
   </tr>
+  <% end %>
   </tbody>
 </table>
 <% end %>
