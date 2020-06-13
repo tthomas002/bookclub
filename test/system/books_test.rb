@@ -2,6 +2,7 @@ require "application_system_test_case"
 
 class BooksTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
+  
   setup do
     @book = books(:one)
     @user = users(:user)
