@@ -2,3 +2,9 @@
 #   record: name_of_fixture (ClassOfFixture)
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
+
+one:
+  record: third_chapter_post
+  record_type: Post
+  name: content
+  body: "This is the content of the first post for the third chapter of the :three_chapters test fixture"

@@ -14,29 +14,28 @@ class BooksTest < ApplicationSystemTestCase
     visit books_url
     click_on "New Book"
 
-    fill_in "Title", with: @book.title
+    fill_in "Title", with: "Test Title"
     click_on "Create Book"
 
     assert_text "Book was successfully created"
-    click_on "Book List"
+    assert_text "Test Title"
   end
 
   test "updating a Book" do
-    visit book_url(@book)
-    click_on "Edit Book Title"
+    visit books_url
+    click_on "Edit", match: :first
 
     fill_in "Title", with: "New Title"
     click_on "Update Book"
 
     assert_text "Book was successfully updated"
     assert_text "New Title"
-    click_on "Book List"
   end
 
   test "destroying a Book" do
-    visit book_url(@book)
+    visit books_url
     page.accept_confirm do
-      click_on "Delete Book", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Book was successfully destroyed"

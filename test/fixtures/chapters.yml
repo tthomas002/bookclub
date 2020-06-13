@@ -2,12 +2,30 @@
 
 book_one_chapter_one:
   book: one
+  title: first chapter
   number: 1
 
 book_one_chapter_two:
   book: one
+  title: second chapter
   number: 2
 
-book_two_chapter_one:
-  book: two
+chapter_1_of_1:
+  book: one_chapter
+  title: only chapter
   number: 1
+
+chapter_1_of_3:
+  book: three_chapters
+  title: first chapter
+  number: 1
+
+chapter_2_of_3:
+  book: three_chapters
+  title: second chapter
+  number: 2
+
+chapter_3_of_3:
+  book: three_chapters
+  title: third chapter
+  number: 3
