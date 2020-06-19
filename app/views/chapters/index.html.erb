@@ -16,16 +16,8 @@
 
 <%= form_with model: [@book, @chapter], local: true do |form| %>
 <table>
-  <thead>
-    <tr>
-      <th>Chapter</th>
-      <th>Title</th>
-      <% if current_user.admin? %>
-        <th colspan="2">Actions</th>
-      <% end %>
-    </tr>
-  </thead>
   <tbody>
+  <% if @book.chapters.count > 0 %>
   <% @book.chapters.order(:number).each do |chapter| %>
     <tr>
       <td>
@@ -46,6 +38,7 @@
       <% end %>
     </tr>
   <% end %>
+  <% end %>
   <% if current_user.admin? %>
   <tr>
     <td>
@@ -63,4 +56,4 @@
 </table>
 <% end %>
 
-<%= link_to "Books", root_path %>
+<%= link_to "Books", books_path %>
