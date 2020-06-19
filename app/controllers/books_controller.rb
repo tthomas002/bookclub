@@ -58,6 +58,6 @@ class BooksController < ApplicationController
     end
 
     def admin_authorization
-      redirect_to root_path unless current_user.admin?
+      redirect_to books_path unless current_user.admin?
     end
 end

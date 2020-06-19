@@ -3,11 +3,32 @@
 one:
   title: Test Post 1
   chapter: book_one_chapter_one
+  user: user
 
 two:
   title: Test Post 2
   chapter: book_one_chapter_one
+  user: user
 
 third_chapter_post:
-  title: "Third Chapter Post"
+  title: "Third Chapter Post 1"
   chapter: chapter_3_of_3
+  user: user
+  created_at: <%= 8.days.ago %>
+
+third_chapter_post_2:
+  title: "Third Chapter Post 2"
+  chapter: chapter_3_of_3
+  user: user
+  created_at: <%= 5.days.ago %>
+
+third_chapter_post_3:
+  title: "Third Chapter Post 3"
+  chapter: chapter_3_of_3
+  user: admin
+  created_at: <%= 3.days.ago %>
+
+third_chapter_post_4:
+  title: "Third Chapter Post 4"
+  chapter: chapter_3_of_3
+  user: user

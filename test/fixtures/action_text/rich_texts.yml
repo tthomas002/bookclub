@@ -8,3 +8,21 @@ one:
   record_type: Post
   name: content
   body: "This is the content of the first post for the third chapter of the :three_chapters test fixture"
+
+two:
+  record: third_chapter_post_2
+  record_type: Post
+  name: content
+  body: "Another one"
+
+three:
+  record: third_chapter_post_3
+  record_type: Post
+  name: content
+  body: "It is required that all posts have content"
+
+four:
+  record: third_chapter_post_4
+  record_type: Post
+  name: content
+  body: "This is even more <div> testing some html </div>"
