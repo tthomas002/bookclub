@@ -7,6 +7,7 @@ class PostsController < ApplicationController
   def create
     @chapter = Chapter.find(params[:chapter_id])
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
     @post.chapter_id = @chapter.id
 
     if @post.save
@@ -20,12 +21,19 @@ class PostsController < ApplicationController
   def edit
     @chapter = Chapter.find(params[:chapter_id])
     @post = Post.find(params[:id])
+
+    if @post.user != current_user
+      redirect_to chapter_posts_path(@chapter), notice: "You cannot edit that post"
+    end
   end
 
   def update
     @chapter = Chapter.find(params[:chapter_id])
     @post = Post.find(params[:id])
-    if @post.update(post_params)
+
+    if @post.user != current_user
+      redirect_to chapter_posts_path(@chapter), notice: "You cannot update that post"
+    elsif @post.update(post_params)
       redirect_to chapter_posts_path(@chapter), notice: 'Post was successfully updated'
     else
       render :edit
@@ -34,8 +42,12 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
-    redirect_to chapter_posts_path(@post.chapter), notice: "Post was successfully destroyed"
+    if @post.user != current_user
+      redirect_to chapter_posts_path(@post.chapter), notice: "You cannot delete that post"
+    else
+      @post.destroy
+      redirect_to chapter_posts_path(@post.chapter), notice: "Post was successfully destroyed"
+    end
   end
 
   private
