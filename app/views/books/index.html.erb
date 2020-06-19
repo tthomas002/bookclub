@@ -3,15 +3,9 @@
 <% if current_user.admin? %>
   <%= link_to 'New Book', new_book_path %>
 <% end %>
-
+<br />
+<br />
 <table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @books.each do |book| %>
       <tr>
@@ -28,5 +22,4 @@
     <% end %>
   </tbody>
 </table>
-
 <br>

@@ -1,12 +1,16 @@
 <h1><%= @chapter.book.title %></h1>
-<h2>Chapter <%= @chapter.number %> Discussion</h2>
+<h2>Chapter <%= @chapter.number %> Discussion</h2> <%= link_to "Back", book_chapters_path(@chapter.book) %>
 
-<% @chapter.posts.each do |post| %>
-  <div>
-    <p><strong><%= post.title %></strong>: <%= post.content %><%= link_to "Edit", edit_chapter_post_path(@chapter, post) %> | <%= link_to "Delete", chapter_post_path(@chapter, post), method: :delete, data: { confirm: "Are you sure you would like to delete this post?" } %></p>
+<% @chapter.posts.order(:created_at).each do |post| %>
+  <div class="post">
+      <strong><%= post.title %></strong> Posted at <%= post.created_at %> by <%= post.user.email %> 
+      <div class="content"><%= post.content %></div>
+      <% if (current_user.posts.include?(post)) %>
+      <%= link_to "Edit", edit_chapter_post_path(@chapter, post), class: "edit-post-link" %> | 
+      <%= link_to "Delete", chapter_post_path(@chapter, post), method: :delete, class: "delete-post-link", data: { confirm: "Are you sure you would like to delete this post?" } %>
+      <% end %>
   </div>
 <% end %>
 
 <%= render "new_post" %>
 
-<%= link_to "Back", book_chapters_path(@chapter.book) %>
