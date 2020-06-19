@@ -24,7 +24,7 @@ class ChaptersTest < ApplicationSystemTestCase
     sign_in @user
     visit book_chapters_url(@book)
     click_on "Books"
-    assert_current_path root_path
+    assert_current_path books_path
   end
 
   test "regular user cant see Edit or Destroy link" do
